@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 条件分支 · 单文件学会</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --code-bg: #0b1120;
+    --accent: #38bdf8;
+    --green: #4ade80;
+    --yellow: #facc15;
+    --red: #f87171;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding-bottom: 80px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 20px; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  h1 .py { color: var(--accent); }
+  .sub { color: var(--muted); margin-bottom: 32px; }
+  h2 {
+    font-size: 1.25rem;
+    margin-top: 44px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+  }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
+    font-size: 0.9em;
+  }
+  pre {
+    background: var(--code-bg);
+    border-radius: 10px;
+    padding: 16px;
+    overflow-x: auto;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border: 1px solid #2d3a52;
+  }
+  pre .kw { color: #c792ea; }
+  pre .str { color: #c3e88d; }
+  pre .num { color: #f78c6c; }
+  pre .cmt { color: #64748b; font-style: italic; }
+  pre .fn { color: #82aaff; }
+  pre .bool { color: #f78c6c; }
+  .tip {
+    background: #0f2b1e;
+    border: 1px solid #14532d;
+    color: #bbf7d0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 0.92rem;
+  }
+  .warn {
+    background: #3a2710;
+    border: 1px solid #78350f;
+    color: #fde68a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 0.92rem;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+  th, td { border: 1px solid #334155; padding: 8px 12px; text-align: left; font-size: 0.9rem; }
+  th { background: #0b1120; }
+  .playground textarea {
+    width: 100%;
+    min-height: 140px;
+    background: var(--code-bg);
+    color: var(--text);
+    border: 1px solid #2d3a52;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+  }
+  .playground button {
+    background: var(--accent);
+    color: #0b1120;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .playground button:hover { opacity: 0.9; }
+  .out {
+    background: #000;
+    color: #86efac;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+    min-height: 40px;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 0.88rem;
+    white-space: pre-wrap;
+  }
+  .err { color: var(--red); }
+  .hl { color: var(--yellow); font-weight: bold; }
+  .steps li { margin: 8px 0; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Python <span class="py">条件分支</span> · 一页学懂</h1>
+  <div class="sub">if / elif / else —— 让程序学会「做决定」</div>
+
+  <div class="card">
+    <p>写程序就像给电脑下指令。有时候你希望电脑<b>根据情况选择走哪条路</b>，这就是「条件分支」。</p>
+    <p>最核心的一句话：<br>
+    <span class="hl">「如果（if）某个条件成立，就做某件事；否则（else）做另一件事。」</span></p>
+    <pre><span class="kw">if</span> 条件:
+    缩进里、条件成立时执行的代码
+<span class="kw">else</span>:
+    缩进里、条件不成立时执行的代码</pre>
+    <div class="tip">注意冒号 <code>:</code> 和缩进（一般是 4 个空格）。Python 靠<b>缩进</b>来判断代码属于哪一块，缩进错了程序就错。</div>
+  </div>
+
+  <h2>一、if / else：二选一</h2>
+  <div class="playground">
+    <pre>age = <span class="num">18</span>
+<span class="kw">if</span> age &gt;= <span class="num">18</span>:
+    <span class="fn">print</span>(<span class="str">"你是成年人"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"你是未成年人"</span>)</pre>
+    <p>把下面的 <code>age</code> 改成 <code>15</code>、<code>20</code>、<code>66</code>，点运行试试结果变化。</p>
+    <textarea id="c1">age = 18
+if age >= 18:
+    print("你是成年人")
+else:
+    print("你是未成年人")</textarea>
+    <button onclick="run('c1','o1')">▶ 运行</button>
+    <div class="out" id="o1"></div>
+  </div>
+
+  <h2>二、if / elif / else：多选一</h2>
+  <p>当有多个分支时，用 <code>elif</code>（= else if）从上到下依次判断，<b>第一个成立的就执行，其余全部跳过</b>。</p>
+  <div class="playground">
+    <pre>score = <span class="num">85</span>
+<span class="kw">if</span> score &gt;= <span class="num">90</span>:
+    <span class="fn">print</span>(<span class="str">"优秀"</span>)
+<span class="kw">elif</span> score &gt;= <span class="num">80</span>:
+    <span class="fn">print</span>(<span class="str">"良好"</span>)
+<span class="kw">elif</span> score &gt;= <span class="num">60</span>:
+    <span class="fn">print</span>(<span class="str">"及格"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"不及格"</span>)</pre>
+    <textarea id="c2">score = 85
+if score >= 90:
+    print("优秀")
+elif score >= 80:
+    print("良好")
+elif score >= 60:
+    print("及格")
+else:
+    print("不及格")</textarea>
+    <button onclick="run('c2','o2')">▶ 运行</button>
+    <div class="out" id="o2"></div>
+    <div class="warn">把 <code>score</code> 改成 <code>95</code>，输出还是「优秀」而不是「良好」，因为 <code>95 &gt;= 90</code> 第一个就命中了，下面不看了。<b>顺序很重要</b>。</div>
+  </div>
+
+  <h2>三、比较运算符</h2>
+  <p>条件里最常用的「比较」，结果是 <code>True</code> 或 <code>False</code>：</p>
+  <table>
+    <tr><th>运算符</th><th>含义</th><th>举例</th><th>结果</th></tr>
+    <tr><td><code>==</code></td><td>等于</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+    <tr><td><code>!=</code></td><td>不等于</td><td><code>5 != 3</code></td><td><code>True</code></td></tr>
+    <tr><td><code>&gt;</code></td><td>大于</td><td><code>5 &gt; 3</code></td><td><code>True</code></td></tr>
+    <tr><td><code>&lt;</code></td><td>小于</td><td><code>5 &lt; 3</code></td><td><code>False</code></td></tr>
+    <tr><td><code>&gt;=</code></td><td>大于等于</td><td><code>5 &gt;= 5</code></td><td><code>True</code></td></tr>
+    <tr><td><code>&lt;=</code></td><td>小于等于</td><td><code>5 &lt;= 3</code></td><td><code>False</code></td></tr>
+  </table>
+  <div class="warn"><b>最容易踩的坑</b>：判断「相等」用两个等号 <code>==</code>，一个等号 <code>=</code> 是<b>赋值</b>。写混了会报错或出现奇怪结果。</div>
+
+  <h2>四、逻辑组合：and / or / not</h2>
+  <div class="playground">
+    <p>把多个条件组合起来，做更复杂的判断：</p>
+    <textarea id="c3">age = 25
+has_id = True
+
+# and：两边都成立才行
+if age >= 18 and has_id:
+    print("可以买票")
+
+# or：只要一边成立就行
+weekday = "六"
+if weekday == "六" or weekday == "日":
+    print("周末，睡个懒觉")
+
+# not：取反
+if not has_id:
+    print("没带身份证")
+else:
+    print("带了身份证")</textarea>
+    <button onclick="run('c3','o3')">▶ 运行</button>
+    <div class="out" id="o3"></div>
+  </div>
+
+  <h2>五、嵌套 if（分支里面再分支）</h2>
+  <div class="playground">
+    <textarea id="c4">age = 20
+sex = "女"
+
+if age >= 18:
+    if sex == "男":
+        print("成年男性")
+    else:
+        print("成年女性")
+else:
+    print("未成年")</textarea>
+    <button onclick="run('c4','o4')">▶ 运行</button>
+    <div class="out" id="o4"></div>
+    <div class="tip">嵌套能解决问题，但层数太多会变难读。通常可以合并成 <code>elif</code> 或 <code>and</code> 来简化。</div>
+  </div>
+
+  <h2>六、练一练</h2>
+  <div class="playground">
+    <p>把温度 <code>temp</code> 转成对应的穿衣建议。改 <code>temp</code> 的值，尝试让程序输出<b>四种</b>不同的结果。</p>
+    <textarea id="c5">temp = 25
+if temp > 30:
+    print("太热了，穿短袖")
+elif temp > 20:
+    print("舒适，穿长袖")
+elif temp > 10:
+    print("有点冷，加个外套")
+else:
+    print("很冷，穿羽绒服")</textarea>
+    <button onclick="run('c5','o5')">▶ 运行</button>
+    <div class="out" id="o5"></div>
+  </div>
+
+  <h2>七、记忆口诀</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><code>if</code> 开头，冒号结尾，代码要<b>缩进</b>。</li>
+      <li>二选一用 <code>else</code>，多选一用 <code>elif</code>。</li>
+      <li>判断相等用 <code>==</code>，赋值用 <code>=</code>。</li>
+      <li><code>and</code> 全真才真，<code>or</code> 一真即真，<code>not</code> 取反义。</li>
+      <li>条件从上往下<b>顺序判断，命中即停</b>。</li>
+    </ol>
+    <p>到这里你已经掌握条件分支的完整用法了 🎉 遇到不会的就回头改数字、点运行，多试几次手感就来了。</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/brython@3.12.4/brython.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.12.4/brython_stdlib.js"></script>
+<script>
+// 全局 JS 函数：Brython 的 print 输出会调用它，把文本追加到目标元素
+window.pyPrint = function (targetId, text) {
+  var el = document.getElementById(targetId);
+  el.textContent += text;
+};
+
+// 核心运行函数：动态生成一段 Python 脚本，把 sys.stdout 重定向到 __pyPrint
+function run(srcId, outId) {
+  var code = document.getElementById(srcId).value;
+  var out = document.getElementById(outId);
+  out.textContent = '';
+  out.classList.remove('err');
+
+  // 用 Python 代码替换 sys.stdout，使其每次 write 都调用 JS 的 __pyPrint
+  // 再执行用户代码
+  var prelude =
+    "import sys\n" +
+    "from browser import window\n" +
+    "class _Buf:\n" +
+    "    def write(self, s):\n" +
+    "        if s:\n" +
+    "            window.pyPrint('" + outId + "', s)\n" +
+    "    def flush(self):\n" +
+    "        pass\n" +
+    "sys.stdout = _Buf()\n" +
+    "sys.stderr = _Buf()\n" +
+    "\n";
+
+  var moduleId = '__run_' + srcId + '_' + Date.now();
+  try {
+    window.__BRYTHON__.runPythonSource(prelude + code, {id: moduleId});
+  } catch (e) {
+    var detail = '';
+    if (e.args && e.args.length) { detail = e.args[0]; }
+    else if (e.message) { detail = e.message; }
+    out.textContent = '运行出错：' + detail;
+    out.classList.add('err');
+  }
+}
+</script>
+</body>
+</html>
